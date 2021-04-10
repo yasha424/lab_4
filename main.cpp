@@ -5,6 +5,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]){
+
   char* infile = argv[1];
   char* outfile = argv[2];
 
