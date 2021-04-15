@@ -1,5 +1,5 @@
 #include <iostream>
-#include <fstream>
+// #include <fstream>
 #include <string>
 #include "BMPHead.hpp"
 using namespace std;
@@ -18,18 +18,32 @@ int main(int argc, char* argv[]){
   FILE* inptr = fopen(infile, "r");
   FILE* outptr = fopen(outfile, "w");
 
-  BMPHEAD bh;
+  BMPHEAD bh, out_bh;
   fread(&bh, sizeof(BMPHEAD), 1, inptr);
 
   fwrite(&bh, sizeof(BMPHEAD), 1, outptr);
 
-  for (size_t i = 0; i < bh.height; i++) {
-    for (size_t j = 0; j < bh.width; j++) {
-      PIXELDATA pixel;
-      fread(&pixel, sizeof(PIXELDATA), 1, inptr);
+  int padding =  (4 - (bh.width * sizeof(PIXELDATA)) % 4) % 4;
 
-      fwrite(&pixel, sizeof(PIXELDATA), 1, outptr);
-    }
+  PIXELDATA pixel;
+
+  for (size_t i = 0; i < bh.height; i++) {
+      pixel.red = 22;
+      pixel.green = 180;
+      pixel.blue = 235;
+      for (size_t j = 0; j < bh.width; j++) {
+          pixel.red += 2;
+          pixel.green += 1;
+          pixel.blue += -2;
+          fwrite(&pixel, sizeof(PIXELDATA), 1, outptr);
+      }
+      for (size_t j = 0; j < padding; j++) {
+          fputc(0x00, outptr);
+      }
   }
 
+
+
+  fclose(outptr);
+  fclose(inptr);
 }
