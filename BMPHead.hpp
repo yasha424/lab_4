@@ -19,30 +19,41 @@ public:
   uint32_t biYPelsPerMeter;
   uint32_t biClrUsed;
   uint32_t biClrImportant;
-  // BMPHEAD(){
-  //   type = 0x424d;
-  //   size = 0xfc310000;
-  //   reserved[0] = 0;
-  //   reserved[1] = 0;
-  //   headersize = 0x36000000;
-  //   infosize = 0x28000000;
-  //   width = 65;
-  //   height = 65;
-  //   biPlanes = 1;
-  //   bits = 24;
-  //   biCompression;
-  //   biSizeImage;
-  //   biXPelsPerMeter;
-  //   biYPelsPerMeter;
-  //   biClrUsed;
-  //   biClrImportant;
-  // }
+  BMPHEAD(){
+    type = 19778;
+    size = 12796;
+    reserved[0] = 0;
+    reserved[1] = 0;
+    headersize = 54;
+    infosize = 40;
+    width = 65;
+    height = 65;
+    biPlanes = 1;
+    bits = 24;
+    biCompression = 0;
+    biSizeImage = 12742;
+    biXPelsPerMeter = 2834;
+    biYPelsPerMeter = 2834;
+    biClrUsed = 0;
+    biClrImportant = 0;
+  }
 };
 #pragma pack(pop)
 
 
-typedef struct {
+class PIXELDATA {
+public:
      uint8_t blue;
      uint8_t green;
      uint8_t red;
-} __attribute__((__packed__)) PIXELDATA;
+     PIXELDATA(){
+         blue = 255;
+         green = 255;
+         red = 255;
+     }
+     PIXELDATA(int r, int g, int b){
+         red = r;
+         green = g;
+         blue = b;
+     }
+};
