@@ -9,6 +9,7 @@ public:
   uint16_t reserved1;
   uint16_t reserved2;
   uint32_t headersize;
+
   uint32_t infosize;
   uint32_t width;
   uint32_t height;

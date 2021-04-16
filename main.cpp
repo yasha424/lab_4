@@ -16,8 +16,8 @@ int main(int argc, char* argv[]){
   char* outfile = argv[2];
   int change = stoi(argv[3]);
 
-  FILE* inptr = fopen(infile, "rb");
-  FILE* outptr = fopen(outfile, "wb");
+  FILE* inptr = fopen(infile, "r");
+  FILE* outptr = fopen(outfile, "w");
 
   BMPHEAD in_bh, out_bh;
 
@@ -27,40 +27,41 @@ int main(int argc, char* argv[]){
   out_bh.height = in_bh.height * change;
   out_bh.width = in_bh.width * change;
 
-  int in_padding = 4 - ((in_bh.width * 3) % 4);
-  int out_padding = 4 - ((out_bh.width * 3) % 4);
+  int in_padding = (4 - ((in_bh.width * 3) % 4)) % 4;
+  int out_padding = (4 - ((out_bh.width * 3) % 4)) % 4;
 
-  cout << in_padding << ", " << out_padding << endl;
-
-  out_bh.size = 54 + out_bh.height * out_bh.width * 3 + out_padding * out_bh.height + 2;
-  out_bh.biSizeImage = ((((in_bh.width * in_bh.bits * change) + 31) & ~31) / 8) * in_bh.height * change;
-
-
-  cout << in_bh.size << ", " << out_bh.size << endl;
-
-
-  // cout << "size is: " << 54 + in_bh.width * (in_bh.height) * 3 + (in_bh.height) *  in_padding;
+  out_bh.size = 54 + out_bh.height * out_bh.width * 3 + out_padding * out_bh.height;
+  // out_bh.biSizeImage = ((((in_bh.width * in_bh.bits * change) + 31) & ~31) / 8) * in_bh.height * change;
 
   fwrite(&out_bh, sizeof(BMPHEAD), 1, outptr);
+
+  PIXELDATA** pixels= new PIXELDATA*[in_bh.height];
+  for (size_t i = 0; i < in_bh.height; i++) {
+      pixels[i] = new PIXELDATA[in_bh.width];
+  }
 
   PIXELDATA pixel;
 
   for (size_t i = 0; i < in_bh.height; i++) {
+      for (size_t j = 0; j < in_bh.width; j++) {
+          fread(&pixels[i][j], sizeof(PIXELDATA), 1, inptr);
+      }
+      fseek(inptr, in_padding, SEEK_CUR);
+  }
+
+  for (size_t i = 0; i < in_bh.height; i++) {
       for (size_t j = 0; j < change; j++) {
           for (size_t k = 0; k < in_bh.width; k++) {
-              fread(&pixel, sizeof(PIXELDATA), 1, inptr);
               for (size_t l = 0; l < change; l++) {
-                  fwrite(&pixel, sizeof(PIXELDATA), 1, outptr);
-              }
-              fseek(inptr, in_padding, SEEK_CUR);
-              for (size_t m = 0; m < 1; m++) {
-                  fputc(0x00, outptr);
+                  fwrite(&pixels[i][k], sizeof(PIXELDATA), 1, outptr);
               }
           }
-          fseek(inptr, -(in_bh.width * 3 + in_padding), SEEK_CUR);
+          for (size_t l = 0; l < out_padding; l++) {
+              fputc(0x00, outptr);
+          }
       }
-      fseek(inptr, in_bh.width * 3 + in_padding, SEEK_CUR);
   }
+
 
   fclose(inptr);
   fclose(outptr);
