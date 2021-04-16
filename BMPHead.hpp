@@ -21,24 +21,24 @@ public:
   uint32_t biYPelsPerMeter;
   uint32_t biClrUsed;
   uint32_t biClrImportant;
-  // BMPHEAD(){
-  //   type = 19778;
-  //   size = 12796;
-  //   reserved[0] = 0;
-  //   reserved[1] = 0;
-  //   headersize = 54;
-  //   infosize = 40;
-  //   width = 65;
-  //   height = 65;
-  //   biPlanes = 1;
-  //   bits = 24;
-  //   biCompression = 0;
-  //   biSizeImage = 12742;
-  //   biXPelsPerMeter = 2834;
-  //   biYPelsPerMeter = 2834;
-  //   biClrUsed = 0;
-  //   biClrImportant = 0;
-  // }
+  BMPHEAD(){
+    type = 19778;
+    size = 2332854;
+    reserved1 = 0;
+    reserved2 = 0;
+    headersize = 54;
+    infosize = 40;
+    width = 1080;
+    height = 720;
+    biPlanes = 1;
+    bits = 24;
+    biCompression = 0;
+    biSizeImage = 12742;
+    biXPelsPerMeter = 2834;
+    biYPelsPerMeter = 2834;
+    biClrUsed = 0;
+    biClrImportant = 0;
+  }
 };
 #pragma pack(pop)
 
@@ -57,6 +57,11 @@ public:
          red = r;
          green = g;
          blue = b;
+     }
+     void change(int r, int g, int b){
+         red += r;
+         green += g;
+         blue += b;
      }
 };
 #pragma pack(pop)
