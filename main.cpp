@@ -1,7 +1,4 @@
 #include <iostream>
-// #include <fstream>
-#include <string>
-#include <cmath>
 #include "BMPHead.hpp"
 using namespace std;
 
@@ -31,7 +28,6 @@ int main(int argc, char* argv[]){
   int out_padding = (4 - ((out_bh.width * 3) % 4)) % 4;
 
   out_bh.size = 54 + out_bh.height * out_bh.width * 3 + out_padding * out_bh.height;
-  // out_bh.biSizeImage = ((((in_bh.width * in_bh.bits * change) + 31) & ~31) / 8) * in_bh.height * change;
 
   fwrite(&out_bh, sizeof(BMPHEAD), 1, outptr);
 
