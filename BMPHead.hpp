@@ -23,13 +23,13 @@ public:
   uint32_t biClrImportant;
   BMPHEAD(){
     type = 19778;
-    size = 2332854;
+    size = 24883254;
     reserved1 = 0;
     reserved2 = 0;
     headersize = 54;
     infosize = 40;
-    width = 1080;
-    height = 720;
+    width = 3840;
+    height = 2160;
     biPlanes = 1;
     bits = 24;
     biCompression = 0;

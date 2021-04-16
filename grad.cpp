@@ -14,13 +14,13 @@ int main() {
     for (size_t i = 0; i < bh.height; i++) {
         PIXELDATA pixel(140, 255, 0);
         for (size_t j = 0; j < bh.width; j++) {
-            if (j % 8 == 0) {
+            if (j % 32 == 0) {
                 pixel.red += -1;
             }
-            if (j % 60 == 0) {
+            if (j % 240 == 0) {
                 pixel.green += -1;
             }
-            if (j % 5 == 0) {
+            if (j % 20 == 0) {
                 pixel.blue += 1;
             }
             fwrite(&pixel, sizeof(PIXELDATA), 1, outptr);
