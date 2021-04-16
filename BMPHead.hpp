@@ -40,9 +40,8 @@ public:
     biClrImportant = 0;
   }
 };
-#pragma pack(pop)
 
-#pragma pack(push, 1)
+
 class PIXELDATA {
 public:
      uint8_t blue;
