@@ -11,7 +11,7 @@ int main(int argc, char* argv[]){
 
   char* infile = argv[1];
   char* outfile = argv[2];
-  int change = stoi(argv[3]);
+  double change = stof(argv[3]);
 
   Image image;
   image.copy(infile);
@@ -19,6 +19,6 @@ int main(int argc, char* argv[]){
       cout << "file cannot be opened or is empty :(" << endl;
   }
   else{
-      image.resize(outfile, change);
+          image.interpolation(outfile, change);
   }
 }

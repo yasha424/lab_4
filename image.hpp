@@ -47,7 +47,7 @@ public:
       return height;
   }
 
-  void changeSize(int k){
+  void changeSize(double k){
       width *= k;
       height *= k;
       int padding = (4 - ((width * 3) % 4)) % 4;
@@ -64,21 +64,9 @@ public:
      uint8_t blue;
      uint8_t green;
      uint8_t red;
-     PIXELDATA(){
-         blue = 255;
-         green = 255;
-         red = 255;
-     }
-     PIXELDATA(int r, int g, int b){
-         red = r;
-         green = g;
-         blue = b;
-     }
-     void change(int r, int g, int b){
-         red += r;
-         green += g;
-         blue += b;
-     }
+     PIXELDATA();
+     PIXELDATA(int r, int g, int b);
+     void change(int r, int g, int b);
 };
 #pragma pack(pop)
 
@@ -92,4 +80,5 @@ public:
     int getHeight();
     void copy(const char* filename);
     void resize(const char* filename, int k);
+    void interpolation(const char* filename, double k);
 };
