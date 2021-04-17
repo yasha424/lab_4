@@ -15,5 +15,10 @@ int main(int argc, char* argv[]){
 
   Image image;
   image.copy(infile);
-  image.resize(outfile, change);
+  if (image.getWidth() == 0 || image.getHeight() == 0) {
+      cout << "file cannot be opened or is empty :(" << endl;
+  }
+  else{
+      image.resize(outfile, change);
+  }
 }

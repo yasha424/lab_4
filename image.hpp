@@ -29,8 +29,8 @@ public:
     reserved2 = 0;
     headersize = 54;
     infosize = 40;
-    width = 3840;
-    height = 2160;
+    width = 0;
+    height = 0;
     biPlanes = 1;
     bits = 24;
     biCompression = 0;
@@ -87,6 +87,9 @@ class Image{
     PIXELDATA** pixels;
 
 public:
+    Image(){}
+    int getWidth();
+    int getHeight();
     void copy(const char* filename);
     void resize(const char* filename, int k);
 };
