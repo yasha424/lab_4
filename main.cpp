@@ -1,5 +1,5 @@
 #include <iostream>
-#include "BMPHead.hpp"
+#include "image.hpp"
 using namespace std;
 
 int main(int argc, char* argv[]){
