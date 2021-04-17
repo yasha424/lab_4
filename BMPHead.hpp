@@ -3,7 +3,6 @@
 
 #pragma pack(push, 1)
 class BMPHEAD{
-public:
   uint16_t type;
   uint32_t size;
   uint16_t reserved1;
@@ -21,6 +20,8 @@ public:
   uint32_t biYPelsPerMeter;
   uint32_t biClrUsed;
   uint32_t biClrImportant;
+
+public:
   BMPHEAD(){
     type = 19778;
     size = 24883254;
@@ -39,6 +40,22 @@ public:
     biClrUsed = 0;
     biClrImportant = 0;
   }
+  uint32_t getWidth(){
+      return width;
+  }
+  uint32_t getHeight(){
+      return height;
+  }
+
+  void changeSize(int k){
+      width *= k;
+      height *= k;
+      int padding = (4 - ((width * 3) % 4)) % 4;
+      size = 54 + height * width * 3 + padding * height;
+  }
+
+
+
 };
 
 
@@ -64,3 +81,54 @@ public:
      }
 };
 #pragma pack(pop)
+
+class Image{
+    BMPHEAD bh;
+    PIXELDATA** pixels;
+
+public:
+    void copy(const char* filename){
+        FILE* file = fopen(filename, "r");
+        fread(&bh, sizeof(BMPHEAD), 1, file);
+        pixels = new PIXELDATA*[bh.getHeight()];
+        int padding = (4 - bh.getWidth() * sizeof(PIXELDATA) % 4) % 4;
+        for (size_t i = 0; i < bh.getHeight(); i++) {
+            pixels[i] = new PIXELDATA[bh.getWidth()];
+            for (size_t j = 0; j < bh.getWidth(); j++) {
+                fread(&pixels[i][j], sizeof(PIXELDATA), 1, file);
+            }
+            fseek(file, padding, SEEK_CUR);
+        }
+        fclose(file);
+    }
+
+    void resize(const char* filename, int k){
+        FILE* file = fopen(filename, "w");
+        bh.changeSize(k);
+        fwrite(&bh, sizeof(BMPHEAD), 1, file);
+        int padding = (4 - bh.getWidth() * sizeof(PIXELDATA) % 4) % 4;
+        for (size_t i = 0; i < bh.getWidth(); i++) {
+            for (size_t j = 0; j < bh.getHeight(); j++) {
+                fwrite(&pixels[i/k][j/k], sizeof(PIXELDATA), 1, file);
+            }
+            for (size_t j = 0; j < padding; j++) {
+                fputc(0x00, file);
+            }
+        }
+        fclose(file);
+    }
+
+    // void create(const char* filename){
+    //     FILE* file = fopen(filename, "w");
+    //     fwrite(&bh, sizeof(BMPHEAD), 1, file);
+    //     int padding = (4 - bh.getWidth() * sizeof(PIXELDATA) % 4) % 4;
+    //     for (size_t i = 0; i < bh.getHeight(); i++) {
+    //         for (size_t j = 0; j < bh.getWidth(); j++) {
+    //             fwrite(&pixels[i][j], sizeof(PIXELDATA), 1, file);
+    //         }
+    //         for (size_t j = 0; j < padding; j++) {
+    //             fputc(0x00, file);
+    //         }
+    //     }
+    // }
+};
