@@ -30,6 +30,6 @@ int main(int argc, char* argv[]){
       double end = clock();
       cout << "Enlarging image " << k << " times... Done.\n";
       cout << "Written result to " << argv[2] << endl;
-      cout << "Elapsed time is: " << (end - start) / 1000000 << " s" << endl;
+      cout << "Elapsed time is: " << (end - start) / 1000000 << "s" << endl;
   }
 }

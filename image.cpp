@@ -83,7 +83,9 @@ void Image::interpolation(const char* filename, double k){
             pixel[int(i*k)][int(j*k)] = pixels[i][j];
             checked[int(i*k)][int(j*k)] = true;
         }
+        delete[] pixels[i];
     }
+    delete[] pixels;
 
     int redstart, greenstart, bluestart, redend, greenend, blueend;
     int i = 0;
