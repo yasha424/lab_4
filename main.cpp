@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 #include "image.hpp"
 using namespace std;
 
@@ -19,8 +20,16 @@ int main(int argc, char* argv[]){
       cout << "file cannot be opened or is empty :(" << endl;
   }
   else{
-      image.interpolation(outfile, k);
+      double start = clock();
+      if ((int)k == k) {
+          image.resize(outfile, k);
+      }
+      else{
+          image.interpolation(outfile, k);
+      }
+      double end = clock();
       cout << "Enlarging image " << k << " times... Done.\n";
       cout << "Written result to " << argv[2] << endl;
+      cout << "Elapsed time is: " << (end - start) / 1000000 << " s" << endl;
   }
 }
