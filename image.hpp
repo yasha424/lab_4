@@ -41,41 +41,40 @@ public:
     biClrImportant = 0;
   }
   uint32_t getWidth(){
-      return width;
+    return width;
   }
   uint32_t getHeight(){
-      return height;
+    return height;
   }
   void changeSize(double k){
-      width *= k;
-      height *= k;
-      int padding = (4 - ((width * 3) % 4)) % 4;
-      size = 54 + height * width * 3 + padding * height;
+    width *= k;
+    height *= k;
+    int padding = (4 - ((width * 3) % 4)) % 4;
+    size = 54 + height * width * 3 + padding * height;
   }
 };
 
 
 class PIXELDATA {
-  private:
-     uint8_t blue;
-     uint8_t green;
-     uint8_t red;
-  public:
-     PIXELDATA();
-     PIXELDATA(int r, int g, int b);
-     void change(int r, int g, int b);
+  uint8_t blue;
+  uint8_t green;
+  uint8_t red;
+public:
+  PIXELDATA();
+  PIXELDATA(int r, int g, int b);
+  void change(int r, int g, int b);
 };
 #pragma pack(pop)
 
 class Image{
-    BMPHEAD bh;
-    PIXELDATA** pixels;
+  BMPHEAD bh;
+  PIXELDATA** pixels;
 
 public:
-    Image(){}
-    int getWidth();
-    int getHeight();
-    void copy(const char* filename);
-    void resize(const char* filename, int k);
-    void interpolation(const char* filename, double k);
+  Image(){}
+  int getWidth();
+  int getHeight();
+  void copy(const char* filename);
+  void resize(const char* filename, int k);
+  void interpolation(const char* filename, double k);
 };
