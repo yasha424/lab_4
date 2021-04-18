@@ -56,11 +56,11 @@ public:
 
 
 class PIXELDATA {
-     private:
+  private:
      uint8_t blue;
      uint8_t green;
      uint8_t red;
-     public:
+  public:
      PIXELDATA();
      PIXELDATA(int r, int g, int b);
      void change(int r, int g, int b);
