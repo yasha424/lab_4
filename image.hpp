@@ -46,16 +46,12 @@ public:
   uint32_t getHeight(){
       return height;
   }
-
   void changeSize(double k){
       width *= k;
       height *= k;
       int padding = (4 - ((width * 3) % 4)) % 4;
       size = 54 + height * width * 3 + padding * height;
   }
-
-
-
 };
 
 
