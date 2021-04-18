@@ -6,7 +6,6 @@ class BMPHEAD{
   uint16_t type;
   uint32_t size;
   uint16_t reserved[2];
-  // uint16_t reserved2;
   uint32_t headersize;
 
   uint32_t infosize;
@@ -59,6 +58,7 @@ class PIXELDATA {
   uint8_t blue;
   uint8_t green;
   uint8_t red;
+  
 public:
   PIXELDATA();
   PIXELDATA(int r, int g, int b);
