@@ -24,7 +24,7 @@ class BMPHEAD{
 public:
   BMPHEAD(){
     type = 19778;
-    size = 24883254;
+    size = 54;
     reserved[0] = 0;
     reserved[1] = 0;
     headersize = 54;
