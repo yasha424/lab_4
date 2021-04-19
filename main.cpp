@@ -21,8 +21,11 @@ int main(int argc, char* argv[]){
   }
   else{
       double start = clock();
-      if ((int)k == k) {
+      if ((int)k == k && k > 0) {
           image.resize(outfile, k);
+      }
+      else if (k < 0) {
+          image.mirror(outfile, -k);
       }
       else{
           image.interpolation(outfile, k);

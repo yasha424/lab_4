@@ -75,4 +75,5 @@ public:
   void copy(const char* filename);
   void resize(const char* filename, int k);
   void interpolation(const char* filename, double k);
+  void mirror(const char* filename, double k);
 };
